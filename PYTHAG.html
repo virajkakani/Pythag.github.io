@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pythag Language</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #111;
+            border-bottom: 2px solid #4a90d9;
+            padding: 40px 60px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: #4a90d9;
+            letter-spacing: 4px;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+
+        nav {
+            background-color: #161616;
+            padding: 14px 60px;
+            display: flex;
+            gap: 30px;
+            border-bottom: 1px solid #222;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: #4a90d9; }
+
+        main {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            color: #aaa;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #4a90d9;
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .download-btn:hover { background-color: #357abd; }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #4a90d9;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 8px;
+        }
+
+        .versions {
+            margin-bottom: 60px;
+        }
+
+        .version-card {
+            background-color: #161616;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .version-info h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .version-info p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            background-color: #4a90d9;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .dl-link {
+            color: #4a90d9;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 1px solid #4a90d9;
+            padding: 8px 18px;
+            border-radius: 5px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .dl-link:hover { background-color: #4a90d9; color: #fff; }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background-color: #161616;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .feature-card h3 {
+            color: #4a90d9;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .feature-card p {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background-color: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 24px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #c9d1d9;
+            line-height: 1.7;
+            margin-bottom: 60px;
+            overflow-x: auto;
+        }
+
+        .code-block .kw  { color: #569cd6; }  /* keywords — VS Code blue */
+        .code-block .type{ color: #4ec9b0; }  /* types — teal */
+        .code-block .fn  { color: #dcdcaa; }  /* functions — yellow */
+        .code-block .num { color: #b5cea8; }  /* numbers — light green */
+        .code-block .str { color: #ce9178; }  /* strings — orange */
+        .code-block .cmt { color: #6a9955; }  /* comments — green */
+        .code-block .op  { color: #d4d4d4; }  /* operators */
+        .code-block .var { color: #9cdcfe; }  /* variables — light blue */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+            font-size: 0.85rem;
+            border-top: 1px solid #1a1a1a;
+        }
+        .prerequisites {
+    background-color: #1a1a1a;
+    border-left: 4px solid #4a90d9;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 60px;
+}
+
+.prerequisites h2 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.checklist {
+    list-style: none;
+}
+
+.checklist li {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.checklist li::before {
+    content: "✓";
+    color: #4a90d9;
+    font-weight: bold;
+}
+
+.cmd-inline {
+    background: #000;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #79b8ff;
+}
+
+.platform-downloads {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 60px;
+}
+
+.platform-card {
+    background-color: #161616;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.platform-card h3 {
+    font-size: 1.1rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.platform-card h3 .platform-icon {
+    font-size: 1.4rem;
+}
+
+.platform-card p {
+    color: #888;
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.platform-card .dl-link {
+    align-self: flex-start;
+}
+
+.manual {
+    margin-bottom: 60px;
+}
+
+.manual-section {
+    background-color: #161616;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+}
+
+.manual-section h3 {
+    color: #4a90d9;
+    font-size: 1rem;
+    margin-bottom: 14px;
+}
+
+.manual-section p,
+.manual-section li {
+    color: #999;
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+
+.manual-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.manual-section ul li::before {
+    content: "— ";
+    color: #4a90d9;
+}
+
+.manual-section .code-snippet {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 5px;
+    padding: 12px 16px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #c9d1d9;
+    line-height: 1.7;
+    margin-top: 10px;
+    overflow-x: auto;
+}
+
+.manual-section .code-snippet .kw  { color: #569cd6; }
+.manual-section .code-snippet .type{ color: #4ec9b0; }
+.manual-section .code-snippet .fn  { color: #dcdcaa; }
+.manual-section .code-snippet .num { color: #b5cea8; }
+.manual-section .code-snippet .str { color: #ce9178; }
+.manual-section .code-snippet .cmt { color: #6a9955; }
+.manual-section .code-snippet .var { color: #9cdcfe; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>PYTHAG</h1>
+    <p>A math-focused programming language &mdash; fractions, complex numbers, matrices, and more.</p>
+</header>
+
+<nav>
+    <a href="#download">Download</a>
+    <a href="#features">Features</a>
+    <a href="#example">Example</a>
+    <a href="#platforms">Platforms</a>
+    <a href="#versions">All Versions</a>
+    <a href="#manual">Manual</a>
+</nav>
+
+<main>
+
+    <!-- Hero -->
+    <section class="hero" id="download">
+        <h2>Download Pythag</h2>
+        <p>Get the latest version of the Pythag compiler. Write <code style="color:#4a90d9">.ptg</code> files and run them with a single command.</p>
+        <a href="#" id="downloadBtn" class="download-btn">
+            <span id="downloadText">Download v0.1.0</span>
+            <span id="osDetection" style="font-size: 0.9rem; opacity: 0.8;"></span>
+        </a>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <h2 class="section-title">Features</h2>
+        <div class="features">
+            <div class="feature-card">
+                <h3>Math Types</h3>
+                <p>Built-in <code>fraction</code>, <code>complex</code>, <code>matrix</code>, and <code>polynomial</code> types with exact arithmetic via GMP.</p>
+            </div>
+            <div class="feature-card">
+                <h3>PEMDAS Aware</h3>
+                <p>Operator precedence follows standard math rules. Use <code>^</code> for exponentiation naturally.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Math Functions</h3>
+                <p><code>sin</code>, <code>cos</code>, <code>sqrt</code>, <code>ln</code>, <code>gcd</code>, <code>nthroot</code>, and many more built in.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Clean Syntax</h3>
+                <p>Typed variables, functions, classes with access modifiers, and readable control flow.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example -->
+    <section id="example">
+        <h2 class="section-title">Example</h2>
+        <div class="code-block">
+<span class="cmt"># Pythag example program</span>
+<span class="kw">fraction</span> f = <span class="fn">fraction</span>(<span class="num">1</span>, <span class="num">3</span>);
+<span class="kw">complex</span>  c = <span class="fn">complex</span>(<span class="num">3</span>, <span class="num">4</span>);
+<span class="kw">float</span>    x = <span class="num">2.0</span>;
+
+<span class="fn">print</span>(f);                   <span class="cmt"># 1/3</span>
+<span class="fn">print</span>(<span class="fn">magnitude</span>(c));        <span class="cmt"># 5.0</span>
+<span class="fn">print</span>(<span class="fn">sqrt</span>(x) + <span class="fn">sin</span>(<span class="num">0</span>));   <span class="cmt"># 1.41421</span>
+
+<span class="kw">int</span> <span class="kw">function</span> <span class="fn">factorial</span>(<span class="kw">int</span> n) {
+    <span class="kw">if</span> (n &lt;= <span class="num">1</span>) { <span class="kw">return</span> <span class="num">1</span>; };
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="num">1</span>);
+};
+
+<span class="fn">print</span>(<span class="fn">factorial</span>(<span class="num">10</span>));       <span class="cmt"># 3628800</span>
+        </div>
+    </section>
+
+    <!-- Platform Downloads -->
+    <section id="platforms">
+        <h2 class="section-title">Download by Platform</h2>
+        <div class="platform-downloads">
+
+            <div class="platform-card">
+                <h3><span class="platform-icon"><img src="tux.svg" width="18" height="22" alt="Linux"></span> Linux</h3>
+                <p>Compiled for x86-64 Linux. Requires GMP and MPFR libraries installed via your package manager.</p>
+                <small style="color:#666;">
+                    Install deps: <span class="cmd-inline">sudo apt install libgmp-dev libmpfr-dev</span>
+                </small>
+                <a href="pythag-v0.1.0-linux.zip" download class="dl-link">Download v0.1.0 (Linux)</a>
+            </div>
+
+            <div class="platform-card">
+                <h3><span class="platform-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" width="22" height="22"><path fill="#f25022" d="M0 0h42v42H0z"/><path fill="#7fba00" d="M46 0h42v42H46z"/><path fill="#00a4ef" d="M0 46h42v42H0z"/><path fill="#ffb900" d="M46 46h42v42H46z"/></svg></span> Windows</h3>
+                <p>Pre-built for Windows 10/11 (64-bit). Includes bundled GMP and MPFR DLLs — no separate install needed.</p>
+                <small style="color:#666;">
+                    Run via: <span class="cmd-inline">cmd</span> or <span class="cmd-inline">PowerShell</span>
+                </small>
+                <a href="pythag-v0.1.0-windows.zip" download class="dl-link">Download v0.1.0 (Windows)</a>
+            </div>
+
+            <div class="platform-card">
+                <h3><span class="platform-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 814 1000" width="18" height="22" fill="#e0e0e0"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-42.3-150.3-109.7C45.5 750.4 0 663 0 580c0-238.1 144.7-348.6 284.8-348.6 74.9 0 137.3 48.3 184.5 48.3 44.7 0 114.9-51.5 199.8-51.5zm-134.9-181c-37.7 45.8-101.4 82.3-161.5 82.3-8.3 0-16.6-.6-24.8-1.9 0-80.5 54.6-165.6 108.9-212.9 37.1-32.7 101.4-60.5 161-60.5 7.1 0 14.2.6 21.3 1.9-1.3 83.1-51.9 163.5-104.9 191.1z"/></svg></span> macOS</h3>
+                <p>Compiled for macOS (Apple Silicon &amp; Intel). Requires GMP and MPFR installed via Homebrew.</p>
+                <small style="color:#666;">
+                    Install deps: <span class="cmd-inline">brew install gmp mpfr</span>
+                </small>
+                <a href="pythag-v0.1.0-Mac.zip" download class="dl-link">Download v0.1.0 (macOS)</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Versions -->
+    <section class="versions" id="versions">
+        <h2 class="section-title">All Versions</h2>
+
+        <div class="version-card">
+            <div class="version-info">
+                <h3>v0.1 <span class="badge">Latest</span></h3>
+                <p>Initial release &mdash; core types, arithmetic, control flow, functions, built-in math.</p>
+            </div>
+            <script>
+                if(navigator.userAgent.indexOf("Windows") > -1) {
+                    document.write('<a href="pythag-v0.1.0-windows.zip" download class="dl-link">Download</a>');
+                } else if(navigator.userAgent.indexOf("Mac") > -1) {
+                    document.write('<a href="pythag-v0.1.0-Mac.zip" download class="dl-link">Download</a>');
+                } else if(navigator.userAgent.indexOf("Linux") > -1) {
+                    document.write('<a href="pythag-v0.1.0-linux.zip" download class="dl-link">Download</a>');
+                }
+            </script>
+        </div>
+
+    </section>
+
+    <!-- Instructions Manual -->
+    <section class="manual" id="manual">
+        <h2 class="section-title">Instructions Manual</h2>
+
+        <div class="manual-section">
+            <h3>Basics</h3>
+            <ul>
+                <li>File extension is <span class="cmd-inline">.ptg</span></li>
+                <li>All lines must be terminated by a semicolon <span class="cmd-inline">;</span></li>
+            </ul>
+            <div class="code-snippet">
+<span class="cmt"># Single-line comment</span>
+<span class="kw">**</span>
+Multi-line comment
+<span class="kw">**</span></div>
+        </div>
+
+        <div class="manual-section">
+            <h3>Variables &amp; Constants</h3>
+            <div class="code-snippet">
+<span class="kw">type</span> variable_name;
+<span class="kw">const type</span> variable_name = value;</div>
+            <p style="margin-top:10px;">Built-in types: <span class="cmd-inline">int</span>, <span class="cmd-inline">float</span>, <span class="cmd-inline">char</span>, <span class="cmd-inline">string</span>, <span class="cmd-inline">bool</span>, <span class="cmd-inline">fraction(n,d)</span>, <span class="cmd-inline">complex(re,im)</span>, <span class="cmd-inline">vector</span>, <span class="cmd-inline">matrix</span>, <span class="cmd-inline">polynomial</span>, <span class="cmd-inline">list</span>, <span class="cmd-inline">set</span>, <span class="cmd-inline">map</span>, <span class="cmd-inline">tuple</span></p>
+            <p style="margin-top:8px;">Built-in constants: <span class="cmd-inline">pi</span>, <span class="cmd-inline">e</span>, <span class="cmd-inline">i</span>, <span class="cmd-inline">true</span>, <span class="cmd-inline">false</span></p>
+        </div>
+
+        <div class="manual-section">
+            <h3>Functions</h3>
+            <div class="code-snippet">
+<span class="cmt"># Block form</span>
+<span class="kw">return_type function</span> name(params) {
+    <span class="cmt"># body</span>
+};
+
+<span class="cmt"># Expression form</span>
+<span class="kw">return_type function</span> name(params) = expression;</div>
+        </div>
+
+        <div class="manual-section">
+            <h3>Classes</h3>
+            <div class="code-snippet">
+<span class="kw">class</span> ClassName {
+    <span class="cmt"># use private, public, or protected modifiers</span>
+};</div>
+        </div>
+
+        <div class="manual-section">
+            <h3>Control Flow</h3>
+            <div class="code-snippet">
+<span class="cmt"># If / elif / else</span>
+<span class="kw">if</span>(condition1){
+    ...
+} <span class="kw">elif</span>(condition2){
+    ...
+} <span class="kw">else</span>{
+    ...
+};
+
+<span class="cmt"># For loop</span>
+<span class="kw">for</span> (i <span class="kw">in</span> range(min, max); i += step){
+    ...
+};
+
+<span class="cmt"># While loop</span>
+<span class="kw">while</span>(condition){
+    ...
+} <span class="kw">else</span>{
+    ...
+};</div>
+            <p style="margin-top:10px;">Boolean operators: <span class="cmd-inline">and</span>, <span class="cmd-inline">or</span>, <span class="cmd-inline">not</span></p>
+        </div>
+
+        <div class="manual-section">
+            <h3>Math Operators &amp; Functions</h3>
+            <p>Follows PEMDAS. Use <span class="cmd-inline">^</span> for exponentiation.</p>
+            <p style="margin-top:8px;">Operators: <span class="cmd-inline">+</span> <span class="cmd-inline">-</span> <span class="cmd-inline">*</span> <span class="cmd-inline">/</span> <span class="cmd-inline">%</span> <span class="cmd-inline">^</span> &nbsp;|&nbsp; <span class="cmd-inline">+=</span> <span class="cmd-inline">-=</span> <span class="cmd-inline">*=</span> <span class="cmd-inline">/=</span> <span class="cmd-inline">%=</span> &nbsp;|&nbsp; <span class="cmd-inline">++</span> <span class="cmd-inline">--</span> &nbsp;|&nbsp; <span class="cmd-inline">==</span> <span class="cmd-inline">!=</span> <span class="cmd-inline">&gt;</span> <span class="cmd-inline">&lt;</span> <span class="cmd-inline">&gt;=</span> <span class="cmd-inline">&lt;=</span></p>
+            <p style="margin-top:8px;">Functions: <span class="cmd-inline">sqrt</span>, <span class="cmd-inline">pow</span>, <span class="cmd-inline">nthroot</span>, <span class="cmd-inline">gcd</span>, <span class="cmd-inline">sin</span>, <span class="cmd-inline">cos</span>, <span class="cmd-inline">tan</span>, <span class="cmd-inline">sec</span>, <span class="cmd-inline">csc</span>, <span class="cmd-inline">cot</span>, <span class="cmd-inline">ln</span>, <span class="cmd-inline">log</span>, <span class="cmd-inline">exp</span>, <span class="cmd-inline">abs</span>, <span class="cmd-inline">min</span>, <span class="cmd-inline">magnitude</span>, <span class="cmd-inline">arg</span>, <span class="cmd-inline">conj</span>, <span class="cmd-inline">real</span>, <span class="cmd-inline">imag</span>, <span class="cmd-inline">phase</span>, <span class="cmd-inline">polar</span>, <span class="cmd-inline">rect</span></p>
+        </div>
+
+        <div class="manual-section">
+            <h3>Built-in Type Functions</h3>
+            <ul>
+                <li><strong>String:</strong> <span class="cmd-inline">length</span>, <span class="cmd-inline">substring</span>, <span class="cmd-inline">index_of</span>, <span class="cmd-inline">replace</span>, <span class="cmd-inline">to_upper</span>, <span class="cmd-inline">to_lower</span>, <span class="cmd-inline">trim</span>, <span class="cmd-inline">split</span>, <span class="cmd-inline">join</span></li>
+                <li><strong>List:</strong> <span class="cmd-inline">length</span>, <span class="cmd-inline">append</span>, <span class="cmd-inline">remove</span>, <span class="cmd-inline">index_of</span>, <span class="cmd-inline">sort</span>, <span class="cmd-inline">reverse</span>, <span class="cmd-inline">map</span>, <span class="cmd-inline">filter</span>, <span class="cmd-inline">reduce</span></li>
+                <li><strong>Set:</strong> <span class="cmd-inline">add</span>, <span class="cmd-inline">remove</span>, <span class="cmd-inline">contains</span>, <span class="cmd-inline">union</span>, <span class="cmd-inline">intersection</span>, <span class="cmd-inline">difference</span></li>
+                <li><strong>Map:</strong> <span class="cmd-inline">put</span>, <span class="cmd-inline">get</span>, <span class="cmd-inline">remove</span>, <span class="cmd-inline">contains</span>, <span class="cmd-inline">keys</span>, <span class="cmd-inline">values</span>, <span class="cmd-inline">items</span></li>
+                <li><strong>Tuple:</strong> <span class="cmd-inline">length</span>, <span class="cmd-inline">get</span>, <span class="cmd-inline">set</span>, <span class="cmd-inline">map</span>, <span class="cmd-inline">filter</span>, <span class="cmd-inline">reduce</span></li>
+                <li><strong>Vector:</strong> <span class="cmd-inline">+</span>, <span class="cmd-inline">-</span>, <span class="cmd-inline">dot</span>, <span class="cmd-inline">cross</span>, <span class="cmd-inline">magnitude</span>, <span class="cmd-inline">normalize</span>, <span class="cmd-inline">angle</span></li>
+                <li><strong>Matrix:</strong> <span class="cmd-inline">+</span>, <span class="cmd-inline">-</span>, <span class="cmd-inline">*</span>, <span class="cmd-inline">transpose</span>, <span class="cmd-inline">determinant</span>, <span class="cmd-inline">inverse</span>, <span class="cmd-inline">eigenvalues</span>, <span class="cmd-inline">eigenvectors</span></li>
+                <li><strong>Polynomial:</strong> <span class="cmd-inline">add</span>, <span class="cmd-inline">subtract</span>, <span class="cmd-inline">multiply</span>, <span class="cmd-inline">power</span>, <span class="cmd-inline">factor</span>, <span class="cmd-inline">gcd</span>, <span class="cmd-inline">divide</span>, <span class="cmd-inline">derivative</span>, <span class="cmd-inline">integral</span>, <span class="cmd-inline">evaluate</span></li>
+                <li><strong>Function:</strong> <span class="cmd-inline">compose</span>, <span class="cmd-inline">partial</span>, <span class="cmd-inline">curry</span>, <span class="cmd-inline">uncurry</span>, <span class="cmd-inline">derivative</span>, <span class="cmd-inline">integral</span>, <span class="cmd-inline">evaluate</span></li>
+            </ul>
+        </div>
+
+        <div class="manual-section">
+            <h3>General Built-ins</h3>
+            <p><span class="cmd-inline">print</span>, <span class="cmd-inline">input</span>, <span class="cmd-inline">type</span>, <span class="cmd-inline">len</span>, <span class="cmd-inline">range</span>, <span class="cmd-inline">enumerate</span>, <span class="cmd-inline">zip</span>, <span class="cmd-inline">map</span>, <span class="cmd-inline">filter</span>, <span class="cmd-inline">reduce</span></p>
+        </div>
+
+        <div class="manual-section">
+            <h3>Compiling &amp; Running</h3>
+            <div class="code-snippet">
+<span class="cmt"># Compile</span>
+your_file.ptg PYTHAGcompileTo your_file
+
+<span class="cmt"># Run (Mac / Linux)</span>
+./your_file
+
+<span class="cmt"># Run (Windows)</span>
+.\your_file</div>
+        </div>
+
+    </section>
+
+    <!-- Prerequisites Checklist -->
+    <section class="prerequisites">
+        <h2>Pre-download Checklist</h2>
+        <ul class="checklist">
+            <li>
+                <strong>C++ Compiler:</strong> Ensure you have <code>g++</code> or <code>clang</code> installed. 
+                <br><small>(Mac: <span class="cmd-inline">xcode-select --install</span>)</small>
+            </li>
+            <li>
+                <strong>Math Engines:</strong> You must have GMP and MPFR installed for high-precision math.
+                <br><small>Mac: <span class="cmd-inline">brew install gmp mpfr</span> | Linux: <span class="cmd-inline">sudo apt install libgmp-dev libmpfr-dev</span></small>
+            </li>
+            <li>
+                <strong>Terminal Access:</strong> Pythag is a command-line tool. You'll need to use Terminal (Mac/Linux) or CMD/PowerShell (Windows).
+            </li>
+        </ul>
+        <p style="margin-top: 15px; font-size: 0.85rem; color: #888;">
+            Need the raw libraries? Download them from the official 
+            <a href="https://gmplib.org/" style="color: #4a90d9;">GMP</a> and 
+            <a href="https://www.mpfr.org/" style="color: #4a90d9;">MPFR</a> websites.
+        </p>
+    </section>
+
+
+</main>
+
+<script>
+// OS Detection and Dynamic Download Links
+function detectOS() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const platform = navigator.platform.toLowerCase();
+    
+    // Detect operating system
+    if (userAgent.includes('mac') || platform.includes('mac')) {
+        return 'macos';
+    } else if (userAgent.includes('win') || platform.includes('win')) {
+        return 'windows';
+    } else if (userAgent.includes('linux') || platform.includes('linux')) {
+        return 'linux';
+    } else {
+        return 'unknown';
+    }
+}
+
+function setupDownloadButton() {
+    const downloadBtn = document.getElementById('downloadBtn');
+    const downloadText = document.getElementById('downloadText');
+    const osDetection = document.getElementById('osDetection');
+    
+    const os = detectOS();
+    let downloadUrl = '';
+    let osText = '';
+    
+    switch(os) {
+        case 'macos':
+            downloadUrl = 'pythag-v0.1.0-Mac.zip';
+            osText = '(macOS)';
+            break;
+        case 'windows':
+            downloadUrl = 'pythag-v0.1.0-windows.zip';
+            osText = '(Windows)';
+            break;
+        case 'linux':
+            downloadUrl = 'pythag-v0.1.0-linux.zip';
+            osText = '(Linux)';
+            break;
+        default:
+            downloadUrl = 'pythag-v0.1.0.zip';
+            osText = '(Universal)';
+    }
+    
+    // Update button
+    downloadBtn.href = downloadUrl;
+    downloadBtn.download = downloadUrl.split('/').pop();
+    osDetection.textContent = osText;
+    
+    // Add click handler for analytics/tracking
+    downloadBtn.addEventListener('click', function(e) {
+        console.log(`Download initiated: ${downloadUrl} for ${os}`);
+        
+        // Optional: Send analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'download', {
+                'event_category': 'PYTHAG',
+                'event_label': os,
+                'value': 1
+            });
+        }
+    });
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', setupDownloadButton);
+</script>
+
+<footer>
+    Copyright &copy;  2026 THE PYTHAGOREAN LANGUAGE GROUP. All rights reserved.
+    <p style="font-size: 0.7rem; color: #444;">
+    Pythag uses <a href="https://gmplib.org" style="color: #4a90d9;">GMP</a> and 
+    <a href="https://mpfr.org" style="color: #4a90d9;">MPFR</a> under the LGPL v3 license.
+</p>
+</footer>
+
+</body>
+</html>
